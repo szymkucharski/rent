@@ -1,0 +1,14 @@
+package com.example.rent.repository
+
+import com.example.rent.models.Offer
+import com.google.firebase.firestore.FirebaseFirestore
+
+class OfferRepository {
+    private val db = FirebaseFirestore.getInstance()
+
+    fun addOffer(offer: Offer, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("offers").add(offer)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { onFailure(it) }
+    }
+}
