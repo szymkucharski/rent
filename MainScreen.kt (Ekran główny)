@@ -1,0 +1,20 @@
+package com.example.rent.ui.screens
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.rent.auth.AuthScreen
+import com.example.rent.map.MapScreen
+
+@Composable
+fun MainScreen() {
+    var isLoggedIn by remember { mutableStateOf(false) }
+
+    if (isLoggedIn) {
+        MapScreen()
+    } else {
+        AuthScreen { isLoggedIn = true }
+    }
+}
