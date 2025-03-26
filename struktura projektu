@@ -1,0 +1,14 @@
+rent/
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/example/rent/
+│   │   │   │   ├── auth/ (Logowanie/rejestracja)
+│   │   │   │   ├── map/ (Mapa Google z Firestore)
+│   │   │   │   ├── models/ (Model `Offer.kt`)
+│   │   │   │   ├── repository/ (Firebase operacje)
+│   │   │   │   ├── ui/ (Composable components)
+│   │   │   ├── res/ (Layouty, ikony)
+│   ├── google-services.json (Konfiguracja Firebase)
+
+
