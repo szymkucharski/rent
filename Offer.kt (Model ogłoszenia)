@@ -1,0 +1,9 @@
+package com.example.rent.models
+
+data class Offer(
+    val id: String = "",
+    val title: String = "",
+    val description: String = "",
+    val lat: Double = 0.0,
+    val lng: Double = 0.0
+)
