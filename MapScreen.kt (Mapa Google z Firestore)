@@ -1,0 +1,47 @@
+package com.example.rent.map
+
+import android.annotation.SuppressLint
+import android.util.Log
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.compose.*
+import com.google.firebase.firestore.FirebaseFirestore
+
+@SuppressLint("MissingPermission")
+@Composable
+fun MapScreen() {
+    val db = FirebaseFirestore.getInstance()
+    val locations = remember { mutableStateListOf<LatLng>() }
+
+    LaunchedEffect(Unit) {
+        db.collection("locations").get().addOnSuccessListener { result ->
+            for (document in result) {
+                val lat = document.getDouble("lat") ?: 0.0
+                val lng = document.getDouble("lng") ?: 0.0
+                locations.add(LatLng(lat, lng))
+            }
+        }.addOnFailureListener { exception ->
+            Log.e("Firestore", "Błąd pobierania: ", exception)
+        }
+    }
+
+    val cameraPosition = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(LatLng(52.2297, 21.0122), 10f)
+    }
+
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPosition
+    ) {
+        locations.forEach { location ->
+            Marker(
+                state = MarkerState(position = location),
+                title = "Oferta"
+            )
+        }
+    }
+}
