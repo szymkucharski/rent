@@ -1,0 +1,14 @@
+// AuthRepository.kt
+class AuthRepository {
+    private val auth = Firebase.auth
+
+    fun register(email: String, password: String, onSuccess: () -> Unit) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener { onSuccess() }
+    }
+
+    fun login(email: String, password: String, onSuccess: () -> Unit) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener { onSuccess() }
+    }
+}
